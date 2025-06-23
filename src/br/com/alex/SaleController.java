@@ -1,5 +1,7 @@
 package br.com.alex;
+import static br.com.alex.util.DateUtils.FORMATTER;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class SaleController {
@@ -19,6 +21,7 @@ public class SaleController {
             System.out.println("1 - Registrar venda");
             System.out.println("2 - Listar vendas");
             System.out.println("3 - Total de vendas");
+            System.out.println("4 - Filtrar vendas pro produto");
             System.out.println("0 - Sair");
 
             opc = Integer.parseInt(scanner.nextLine());
@@ -27,6 +30,7 @@ public class SaleController {
                 case 1 -> registerSale();
                 case 2 -> listSales();
                 case 3 -> totalSale();
+                case 4 -> service.filterByProduct();
                 case 0 -> System.out.println("Saindo");
                 default -> System.out.println("Opção inválida");
             }
@@ -43,7 +47,9 @@ public class SaleController {
         System.out.println("Informe o preço unitário: ");
         double price = Double.parseDouble(scanner.nextLine());
 
-        service.registerSale(item, quantity, price);
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        service.registerSale(item, quantity, price, localDateTime);
         System.out.println("Venda registrada");
     }
 

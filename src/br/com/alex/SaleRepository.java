@@ -1,6 +1,8 @@
 package br.com.alex;
+import static br.com.alex.util.DateUtils.FORMATTER;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ public class SaleRepository {
 
     public SaleRepository(String fileName) {
         this.fileName = fileName;
+        load();
     }
 
     private void load() {
@@ -20,12 +23,13 @@ public class SaleRepository {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] arr = line.split(";");
-                if (arr.length == 3) {
+                if (arr.length == 4) {
                     String item = arr[0];
                     int quantity = Integer.parseInt(arr[1]);
                     double price = Double.parseDouble(arr[2]);
+                    LocalDateTime localDateTime = LocalDateTime.parse(arr[3], FORMATTER);
 
-                    sales.add(new Sales(item, quantity, price));
+                    sales.add(new Sales(item, quantity, price, localDateTime));
                 }
             }
         } catch (IOException e) {
@@ -36,7 +40,7 @@ public class SaleRepository {
     public void saveData() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             for (Sales s : sales) {
-                bw.write(s.getProductName() + ";" + s.getQuantity() + ";" + s.getUnitPrice());
+                bw.write(s.getProductName() + ";" + s.getQuantity() + ";" + s.getUnitPrice() + ";" + s.getLocalDateTime().format(FORMATTER));
                 bw.newLine();
             }
         } catch (IOException e) {

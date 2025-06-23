@@ -1,18 +1,15 @@
 # SimpleSellRegistration
 
 Este é um simples sistema de registro de vendas desenvolvido em Java.
-Com ele é possível:
-
-- Cadastrar novas vendas.
-- Listar vendas cadastradas.
-- Ver o total de vendas.
 
 ## Funcionalidades
 
 - Cadastrar uma nova venda
 - Listar todas as vendas
 - Somar o total das vendas
+- Filtrar vendas por nome do produto
 - Salvar os registros em um arquivo
+- Registro de data e hora
 
 ## Como executar 
 
